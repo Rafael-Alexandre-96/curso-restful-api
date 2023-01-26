@@ -1,34 +1,16 @@
-package br.com.curso.model;
+package br.com.curso.data.vo.v1;
 
 import java.io.Serializable;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
-@Entity
-@Table(name = "tb_person")
-public class Person implements Serializable {
+public class PersonVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@Column(name = "first_name", nullable = false, length = 50)
 	private String fistName;
-	
-	@Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
-	
-	@Column(nullable = false, length = 100)
 	private String address;
-	
-	@Column(nullable = false, length = 6)
 	private String gender;
 	
 	public Long getId() {
@@ -70,7 +52,7 @@ public class Person implements Serializable {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -84,7 +66,7 @@ public class Person implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Person other = (Person) obj;
+		PersonVO other = (PersonVO) obj;
 		return Objects.equals(id, other.id);
 	}
 }
