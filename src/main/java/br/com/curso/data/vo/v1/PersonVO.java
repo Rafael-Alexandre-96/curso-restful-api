@@ -8,7 +8,7 @@ public class PersonVO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private String fistName;
+	private String firstName;
 	private String lastName;
 	private String address;
 	private String gender;
@@ -21,12 +21,12 @@ public class PersonVO implements Serializable {
 		this.id = id;
 	}
 
-	public String getFistName() {
-		return fistName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFistName(String fistName) {
-		this.fistName = fistName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
