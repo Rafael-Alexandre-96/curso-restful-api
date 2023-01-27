@@ -18,7 +18,7 @@ import br.com.curso.data.vo.v1.PersonVO;
 import br.com.curso.services.PersonServices;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/person/v1")
 public class PersonController {
 	@Autowired
 	private PersonServices service;
