@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 
 import br.com.curso.exceptions.ExceptionResponse;
+import br.com.curso.exceptions.RequiredObjectIsNullException;
 import br.com.curso.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
@@ -32,5 +33,14 @@ public class CustomizedResponseEntityExceptionHandler {
 				ex.getMessage(),
 				request.getDescription(false));
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(RequiredObjectIsNullException.class)
+	public final ResponseEntity<ExceptionResponse> handleObjectIsNullExceptions(Exception ex, WebRequest request) {
+		ExceptionResponse exceptionResponse = new ExceptionResponse(
+				OffsetDateTime.now(),
+				ex.getMessage(),
+				request.getDescription(false));
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 }
