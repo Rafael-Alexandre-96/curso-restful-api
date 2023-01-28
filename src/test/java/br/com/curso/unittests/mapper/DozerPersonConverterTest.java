@@ -12,7 +12,7 @@ import br.com.curso.mapper.DozerMapper;
 import br.com.curso.model.Person;
 import br.com.curso.unittests.mapper.mocks.MockPerson;
 
-public class DozerConverterTest {
+public class DozerPersonConverterTest {
     
     MockPerson inputObject;
 
