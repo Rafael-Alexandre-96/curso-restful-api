@@ -61,7 +61,7 @@ class BookServicesTest {
 		assertEquals("Author Test1", result.getAuthor());
         assertEquals(OffsetDateTime.parse("2023-01-21T00:00:00-03:00"), result.getLaunchDate());
         assertEquals(10D, result.getPrice());
-        assertEquals("Title Test1", result.getTitle());;
+        assertEquals("Title Test1", result.getTitle());
 	}
 
 	@Test
@@ -84,7 +84,7 @@ class BookServicesTest {
 		assertEquals("Author Test1", bookOne.getAuthor());
         assertEquals(OffsetDateTime.parse("2023-01-21T00:00:00-03:00"), bookOne.getLaunchDate());
         assertEquals(10D, bookOne.getPrice());
-        assertEquals("Title Test1", bookOne.getTitle());;
+        assertEquals("Title Test1", bookOne.getTitle());
 		
 		var bookFour = people.get(4);
 		
@@ -95,7 +95,7 @@ class BookServicesTest {
 		assertEquals("Author Test4", bookFour.getAuthor());
         assertEquals(OffsetDateTime.parse("2023-01-24T00:00:00-03:00"), bookFour.getLaunchDate());
         assertEquals(40D, bookFour.getPrice());
-        assertEquals("Title Test4", bookFour.getTitle());;
+        assertEquals("Title Test4", bookFour.getTitle());
 	}
 
 	@Test
@@ -118,7 +118,7 @@ class BookServicesTest {
 		assertEquals("Author Test1", result.getAuthor());
         assertEquals(OffsetDateTime.parse("2023-01-21T00:00:00-03:00"), result.getLaunchDate());
         assertEquals(10D, result.getPrice());
-        assertEquals("Title Test1", result.getTitle());;
+        assertEquals("Title Test1", result.getTitle());
 	}
 	
 	@Test
@@ -163,7 +163,7 @@ class BookServicesTest {
 		assertEquals("Author Test1", result.getAuthor());
         assertEquals(OffsetDateTime.parse("2023-01-21T00:00:00-03:00"), result.getLaunchDate());
         assertEquals(10D, result.getPrice());
-        assertEquals("Title Test1", result.getTitle());;
+        assertEquals("Title Test1", result.getTitle());
 	}
 
 	@Test

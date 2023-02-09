@@ -43,7 +43,7 @@ public class BookServices {
 		if (bookVO == null) throw new RequiredObjectIsNullException();
 		logger.info("Creating one book!");
 		var entity = DozerMapper.parseObject(bookVO, Book.class);
-		var vo = DozerMapper.parseObject(repository.save(entity), BookVO.class);;
+		var vo = DozerMapper.parseObject(repository.save(entity), BookVO.class);
 		vo.add(linkTo(methodOn(BookController.class).findById(vo.getKey())).withSelfRel());
 		return vo;
 	}
