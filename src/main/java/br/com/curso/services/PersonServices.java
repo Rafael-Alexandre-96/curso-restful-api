@@ -16,6 +16,7 @@ import br.com.curso.exceptions.ResourceNotFoundException;
 import br.com.curso.mapper.DozerMapper;
 import br.com.curso.model.Person;
 import br.com.curso.repositories.PersonRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class PersonServices {
@@ -59,6 +60,16 @@ public class PersonServices {
 		
 		var vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);;
 		vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
+		return vo;
+	}
+	
+	@Transactional
+	public PersonVO disablePerson(Long id) {
+		logger.info("Disabling one person!");
+		repository.disablePerson(id);
+		var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
+		PersonVO vo = DozerMapper.parseObject(entity, PersonVO.class);
+		vo.add(linkTo(methodOn(PersonController.class).findById(id)).withSelfRel());
 		return vo;
 	}
 	
