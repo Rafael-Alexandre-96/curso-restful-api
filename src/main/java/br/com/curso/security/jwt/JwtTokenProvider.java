@@ -22,7 +22,6 @@ import br.com.curso.data.vo.v1.security.TokenVO;
 import br.com.curso.exceptions.InvalidJwtAuthenticationException;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class JwtTokenProvider {
@@ -51,7 +50,20 @@ public class JwtTokenProvider {
 		var refreshToken = getRefreshToken(username, roles, now);
 		return new TokenVO(username, true, now, validity, accessToken, refreshToken);
 	}
-
+	
+	public TokenVO refreshToken(String refreshToken) {
+		if (refreshToken.contains("Bearer ")) 
+			refreshToken = refreshToken.substring("Bearer ".length());
+		
+		JWTVerifier verifier = JWT.require(algorithm).build();
+		DecodedJWT decodedJWT = verifier.verify(refreshToken);
+		
+		var username = decodedJWT.getSubject();
+		var roles = decodedJWT.getClaim("roles").asList(String.class);
+		
+		return createAccessToken(username, roles);
+	}
+	
 	private String getAccessToken(String username, List<String> roles, Date now, Date validity) {
 		String issuerUrl = ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
 		return JWT.create()
