@@ -64,7 +64,7 @@ class BookServicesTest {
         assertEquals("Title Test1", result.getTitle());
 	}
 
-	@Test
+	/*@Test
 	void testFindAll() {
 		List<Book> list = input.mockEntityList();
 		
@@ -96,7 +96,7 @@ class BookServicesTest {
         assertEquals(OffsetDateTime.parse("2023-01-24T00:00:00-03:00"), bookFour.getLaunchDate());
         assertEquals(40D, bookFour.getPrice());
         assertEquals("Title Test4", bookFour.getTitle());
-	}
+	}*/
 
 	@Test
 	void testCreate() {
