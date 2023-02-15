@@ -3,10 +3,14 @@ package br.com.curso.services;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.stereotype.Service;
 
 import br.com.curso.controllers.PersonController;
@@ -25,6 +29,9 @@ public class PersonServices {
 	@Autowired
 	PersonRepository repository;
 	
+	@Autowired
+	PagedResourcesAssembler<PersonVO> assembler;
+	
 	public PersonVO findById(Long id) {
 		logger.info("Finding new person!");
 		var entity = repository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
@@ -33,11 +40,13 @@ public class PersonServices {
 		return vo;
 	}
 	
-	public List<PersonVO> findAll() {
+	public PagedModel<EntityModel<PersonVO>> findAll(Pageable pageable) {
 		logger.info("Finding all people!");
-		var persons = DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
-		persons.stream().forEach(person -> person.add(linkTo(methodOn(PersonController.class).findById(person.getKey())).withSelfRel()));
-		return persons;
+		var personPage = repository.findAll(pageable);
+		var personVosPage = personPage.map(person -> DozerMapper.parseObject(person, PersonVO.class));
+		personVosPage.map(person -> person.add(linkTo(methodOn(PersonController.class).findById(person.getKey())).withSelfRel()));
+		Link link = linkTo(methodOn(PersonController.class).findAll(pageable.getPageNumber(), pageable.getPageSize(), "asc")).withSelfRel();
+		return assembler.toModel(personVosPage, link);
 	}
 	
 	public PersonVO create(PersonVO personVO) {
